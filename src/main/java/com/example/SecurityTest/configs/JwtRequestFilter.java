@@ -3,6 +3,7 @@ package com.example.SecurityTest.configs;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
+import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,6 +29,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");
         String username = null;
         String jwt = null;
+
+        String jwtTokenParam = request.getParameter("JWT-token");
+
+        Cookie[] cookies = request.getCookies();
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
             try {
@@ -37,7 +42,30 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             } catch (SignatureException e) {
                 log.debug("Подпись неправильная");
             }
+        } else if(jwtTokenParam != null && jwtTokenParam.startsWith("Bearer ")) {
+            jwt = jwtTokenParam.substring(7);
+            try {
+                username = jwtTokenUtils.getUsername(jwt);
+            } catch (ExpiredJwtException e) {
+                log.debug("Время жизни токена вышло");
+            } catch (SignatureException e) {
+                log.debug("Подпись неправильная");
+            }
+        }  else if(cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("jwtToken")) {
+                    jwt = cookie.getValue();
+                    try {
+                        username = jwtTokenUtils.getUsername(jwt);
+                    } catch (ExpiredJwtException e) {
+                        log.debug("Время жизни токена вышло");
+                    } catch (SignatureException e) {
+                        log.debug("Подпись неправильная");
+                    }
+                }
+            }
         }
+
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                     username,

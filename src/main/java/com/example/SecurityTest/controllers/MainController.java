@@ -41,12 +41,4 @@ public class MainController {
         //        return principal.getName();
     }
 
-    @GetMapping(value = "/index")
-    public String test(){
-        return("""
-                {
-                               "username": "user",
-                               "password": "123"
-                }""");
-    }
 }

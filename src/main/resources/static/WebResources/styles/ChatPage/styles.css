@@ -1,0 +1,222 @@
+.parent {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 0;
+
+  &::before {
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    content: "";
+  }
+}
+
+.block {
+  display: inline-block;
+  white-space: normal;
+  vertical-align: middle;
+  text-align: left;
+
+  img {
+    display: block;
+    border: none;
+  }
+  width: 800px;
+  height: 600px;
+  border: 3px solid #090cd3;
+
+  background-color: rgb(172, 239, 246);
+}
+
+.block-left {
+  width: 300px;
+  height: 100%;
+  overflow: auto;
+  float: left;
+  background: linear-gradient(to bottom right, blue, pink);
+}
+
+.block-right {
+  padding-left: 5px;
+  border-left: 5px;
+  border-color: blue;
+  float: right;
+  width: 495px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom right,
+    rgb(136, 46, 133),
+    rgb(109, 73, 230)
+  );
+  position: relative;
+}
+
+#w123 {
+  font-size: 10px;
+}
+
+.contact {
+  margin-bottom: 3px;
+  width: 100%;
+  height: 70px;
+  background: linear-gradient(to bottom right, rgb(134, 90, 237), pink);
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+}
+
+.contact:hover {
+  background: rgb(140, 109, 232);
+  transition: 0.1s linear;
+}
+
+.circle-image {
+  display: inline-block;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 60px;
+  height: 60px;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.circle-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.name-in-contact {
+  font-size: large;
+  font-family: sans-serif;
+}
+
+.chats-line {
+  width: 100%;
+  height: 40px;
+  background-color: rgb(250, 249, 248);
+  font: italic small-caps bold 16px/2 cursive;
+  margin-bottom: 3px;
+}
+
+.tools-bar {
+  width: 100%;
+  height: 50px;
+  background-color: rgb(250, 249, 248);
+  font: italic small-caps bold 16px/2 cursive;
+  margin-bottom: 3px;
+}
+
+.type-massage-block {
+  margin-left: -5px;
+  width: 100%;
+  background-color:rgba(192, 171, 225, 0.933);
+  position: absolute;
+  bottom: 0;
+}
+.type-massage-block div{
+  float: left;
+  clear: none; 
+}
+
+.message {
+    margin: 10px;
+    background:  rgb(250, 249, 248); /* Цвет фона */
+    color: #0c0c0c; /* Цвет текста */
+    padding: 10px; /* Поля вокруг текста */
+    border-radius: 10px; /* Уголки */
+}
+
+.name-in-massage{
+    margin-top: -5px;
+    margin-bottom: 0px;
+    font-size: 14px;
+    font-family: sans-serif;
+    color: #090cd3;
+    font:bold
+}
+
+.message-text{
+  font: 16px "Fira Sans", sans-serif; 
+}
+
+#parent-of-right-block{
+  width: 490px;
+  height: 600px;
+}
+
+#textareaMessage{
+  margin: 10px;
+}
+
+.glow-on-hover {
+  width: 60px;
+  height: 30px;
+  border: none;
+  outline: none;
+  color: #fff;
+  background: #a305e7;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+}
+
+.glow-on-hover:before {
+  content: '';
+  background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+  position: absolute;
+  top: -2px;
+  left:-2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: 60px;
+  height: 30px;
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+  border-radius: 10px;
+}
+
+.glow-on-hover:active {
+  color: #c60fe7
+}
+
+.glow-on-hover:active:after {
+  background: transparent;
+}
+
+.glow-on-hover:hover:before {
+  opacity: 1;
+}
+
+.glow-on-hover:after {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 30px;
+  background: #8e088e;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+@keyframes glowing {
+  0% { background-position: 0 0; }
+  50% { background-position: 400% 0; }
+  100% { background-position: 0 0; }
+}
+
+.messages::-webkit-scrollbar {
+  width: 0;
+}
